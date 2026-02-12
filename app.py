@@ -1,4 +1,3 @@
-%%writefile app.py
 import streamlit as st
 import random
 
@@ -104,4 +103,5 @@ else:
         if st.button("Keep!", key="keep", type="primary", use_container_width=True):
             st.session_state.kept.append(current_need)
             st.session_state.current_index += 1
+
             st.rerun()
