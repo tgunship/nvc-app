@@ -1,0 +1,107 @@
+%%writefile app.py
+import streamlit as st
+import random
+
+# --- 1. ニーズリスト ---
+DEFAULT_NEEDS = [
+    "つながり", "受容", "愛情", "所属", "協力", "コミュニケーション", "親密さ", "共感", 
+    "信頼", "理解", "安心", "安全", "安定", "調和", "平和", "秩序", "保護", 
+    "意味", "貢献", "創造性", "発見", "効率", "成長", "希望", "学び", "目的", 
+    "自律", "選択", "自由", "独立", "スペース", 
+    "休息", "睡眠", "リラックス", "遊び", "楽しみ", "ユーモア", 
+    "身体的健やかさ", "食糧", "運動", "接触"
+]
+
+st.title("🌱 NVC Needs Selector")
+
+# --- 2. 初期設定（リセット時もここを通る） ---
+if 'candidates' not in st.session_state:
+    st.session_state.candidates = DEFAULT_NEEDS.copy()
+    random.shuffle(st.session_state.candidates) # 最初だけランダム
+    st.session_state.kept = []
+    st.session_state.current_index = 0
+    st.session_state.round_count = 1
+    st.session_state.finished = False
+    st.session_state.final_need = ""
+
+# --- 3. 判定ロジック（表示の前に計算を行う） ---
+
+# もし「今のラウンド」が終了していたら（インデックスがリスト数を超えたら）
+if st.session_state.current_index >= len(st.session_state.candidates) and not st.session_state.finished:
+    
+    # Keepが1つに絞られたら終了
+    if len(st.session_state.kept) == 1:
+        st.session_state.final_need = st.session_state.kept[0]
+        st.session_state.finished = True
+        st.rerun() # 画面を更新して結果表示へ
+        
+    # Keepが0個になってしまったら救済措置
+    elif len(st.session_state.kept) == 0:
+        st.warning("すべて「これじゃない」になってしまいました。リストを戻してやり直します。")
+        st.session_state.current_index = 0
+        st.rerun()
+        
+    # まだ複数あるなら次のラウンドへ
+    else:
+        st.session_state.candidates = st.session_state.kept.copy() # Keepしたものを次の候補に
+        st.session_state.kept = [] # Keep箱を空にする
+        st.session_state.current_index = 0 # 0番目に戻す
+        st.session_state.round_count += 1
+        st.rerun() # 画面を更新して次のラウンドへ
+
+# --- 4. 画面表示（結果発表 または 選択画面） ---
+
+if st.session_state.finished:
+    # === 結果画面 ===
+    st.balloons() # お祝いのエフェクト
+    st.success("あなたの選んだ大切なニーズは...")
+    st.markdown(f"<h1 style='text-align: center; color: #E91E63;'>{st.session_state.final_need}</h1>", unsafe_allow_html=True)
+    st.write("---")
+    
+    if st.button("最初からやり直す", use_container_width=True):
+        # セッション状態をクリアしてリセット
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
+
+else:
+    # === 選択画面 ===
+    # 現在のニーズを取得
+    current_need = st.session_state.candidates[st.session_state.current_index]
+    
+    # 進捗バー
+    total = len(st.session_state.candidates)
+    current = st.session_state.current_index + 1
+    st.caption(f"Round {st.session_state.round_count} | {current} / {total}")
+    st.progress(st.session_state.current_index / total)
+
+    # カード表示
+    st.markdown(
+        f"""
+        <div style="
+            padding: 40px; 
+            background-color: #ffffff; 
+            border: 2px solid #e0e0e0;
+            border-radius: 15px; 
+            text-align: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;">
+            <h2 style="color: #333; margin:0; font-size: 32px;">{current_need}</h2>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # ボタンエリア
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("これじゃない", key="drop", use_container_width=True):
+            st.session_state.current_index += 1
+            st.rerun()
+
+    with col2:
+        if st.button("Keep!", key="keep", type="primary", use_container_width=True):
+            st.session_state.kept.append(current_need)
+            st.session_state.current_index += 1
+            st.rerun()
