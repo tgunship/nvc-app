@@ -15,7 +15,7 @@ DEFAULT_NEEDS = [
     "安らげる居場所", "遊び・気軽さ", "喜び", "祝福", "挑戦・刺激"
 ]
 
-st.title("🌱 NVC Needs Selector")
+st.title("🌱 ニーズ Aha!")
 
 # --- 2. 初期設定（リセット時もここを通る） ---
 if 'candidates' not in st.session_state:
@@ -104,11 +104,12 @@ else:
             st.rerun()
 
     with col2:
-        if st.button("Keep!", key="keep", type="primary", use_container_width=True):
+        if st.button("キープ！", key="keep", type="primary", use_container_width=True):
             st.session_state.kept.append(current_need)
             st.session_state.current_index += 1
 
             st.rerun()
+
 
 
 
