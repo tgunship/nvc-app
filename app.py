@@ -93,8 +93,6 @@ if st.session_state.finished:
         unsafe_allow_html=True
     )
     
-    st.write("---")
-    
     if st.button("もう一度、心に問いかける", use_container_width=True):
         # セッション状態をクリアしてリセット
         for key in list(st.session_state.keys()):
