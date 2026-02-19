@@ -17,7 +17,7 @@ DEFAULT_NEEDS = [
     "安らげる居場所", "遊び・気軽さ", "喜び", "祝福", "挑戦・刺激"
 ]
 
-st.title("🌱 ニーズ アハ！")
+st.title("🎯 ニーズ アハ！")
 
 # --- 2. 初期設定（リセット時もここを通る） ---
 if 'candidates' not in st.session_state:
@@ -59,11 +59,35 @@ if st.session_state.current_index >= len(st.session_state.candidates) and not st
 if st.session_state.finished:
     # === 結果画面 ===
     st.balloons() # お祝いのエフェクト
-    st.success("あなたの選んだ大切なニーズは...")
-    st.markdown(f"<h1 style='text-align: center; color: #E91E63;'>{st.session_state.final_need}</h1>", unsafe_allow_html=True)
+    
+    # 🎯に合わせたメッセージ
+    st.markdown("<h2 style='text-align: center; color: #ff5722;'>🎯 アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 18px; color: #555;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
+    
+    # 結果を強調する特別なカードデザイン（温かみのあるグラデーション）
+    st.markdown(
+        f"""
+        <div style="
+            padding: 50px 20px; 
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe0b2 100%); 
+            border: 2px solid #ffcc80;
+            border-radius: 20px; 
+            text-align: center; 
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            margin: 30px 0;">
+            <h1 style="color: #d32f2f; margin:0; font-size: 48px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">
+                {st.session_state.final_need}
+            </h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # 深めるための優しい問いかけ
+    st.info("💡 このニーズを日常で少しだけ意識してみると、どんな気持ちの変化がありそうでしょうか？")
     st.write("---")
     
-    if st.button("最初からやり直す", use_container_width=True):
+    if st.button("もう一度、心に問いかける", use_container_width=True):
         # セッション状態をクリアしてリセット
         for key in list(st.session_state.keys()):
             del st.session_state[key]
