@@ -10,11 +10,11 @@ st.markdown("""
     .stApp {
         background-color: #FDFBF7;
     }
-    /* st.infoボックスのデザイン調整 */
+    /* st.infoボックスのデザイン調整（背景をさらに薄い青に） */
     .stAlert {
-        background-color: #E8F4FD;
-        border: 1px solid #D0E6FC;
-        color: #333;
+        background-color: #F0F6FA; /* さらに薄い青色に変更 */
+        border: 1px solid #DCE6EF; /* 枠線も少し薄く調整 */
+        color: #333333;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -27,7 +27,7 @@ DEFAULT_NEEDS = [
     "自由・選択", "自律", "空間・間", "自発性", "自分に本物であること", 
     "言行一致・誠実さ", "自己表現", "意味・目的", "貢献", "成長", 
     "探求・発見", "創造性", "内なる力", "効力感・達成", "明確さ",
-    "嘆き・悼み", "インスピレーション・直感", "平和・調和", "ただ在ること", "流れ・フロー", 
+    "嘆・悼み", "インスピレーション・直感", "平和・調和", "ただ在ること", "流れ・フロー", 
     "秩序", "平等・公平", "美", "身体の安全", "安心", 
     "休息", "心身の滋養", "ふれあい", "活力・いのちの躍動", "希望", 
     "安らげる居場所", "遊び・気軽さ", "喜び", "祝福", "挑戦・刺激"
@@ -116,7 +116,7 @@ else:
     total = len(st.session_state.candidates)
     
     # 画像を参考に、ラウンド情報とインストラクションを追加
-    st.write(f"ラウンド{st.session_state.round_count}: 残り {total} 個の候補")
+    st.write(f"ラウンド{st.session_state.round_count}: 現在 {total} 個の候補があります。")
     
     st.info("""
     💡 **最終的に「これだ！」という1つのニーズに絞り込んでいきます。**
@@ -167,4 +167,3 @@ st.markdown(
     """, 
     unsafe_allow_html=True
 )
-
