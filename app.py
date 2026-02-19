@@ -1,3 +1,5 @@
+# Copyright © 2026 Takeshi Uchida
+
 import streamlit as st
 import random
 
@@ -107,11 +109,14 @@ else:
         if st.button("キープ！", key="keep", type="primary", use_container_width=True):
             st.session_state.kept.append(current_need)
             st.session_state.current_index += 1
-
             st.rerun()
 
-
-
-
-
-
+# --- 5. コピーライト表示（フッター） ---
+st.markdown(
+    """
+    <div style="text-align: center; padding-top: 50px; color: #888888; font-size: 14px;">
+        Copyright &copy; 2026 Takeshi Uchida
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
