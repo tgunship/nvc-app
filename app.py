@@ -60,8 +60,8 @@ if st.session_state.finished:
     # === 結果画面 ===
     st.balloons() # お祝いのエフェクト
     
-    # 🎯に合わせたメッセージ
-    st.markdown("<h2 style='text-align: center; color: #ff5722;'>🎯 アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
+    # メッセージ
+    st.markdown("<h2 style='text-align: center; color: #ff5722;'>アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 18px; color: #555;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
     
     # 結果を強調する特別なカードデザイン（温かみのあるグラデーション）
@@ -83,8 +83,6 @@ if st.session_state.finished:
         unsafe_allow_html=True
     )
     
-    # 深めるための優しい問いかけ
-    st.info("💡 このニーズを日常で少しだけ意識してみると、どんな気持ちの変化がありそうでしょうか？")
     st.write("---")
     
     if st.button("もう一度、心に問いかける", use_container_width=True):
