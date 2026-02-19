@@ -10,6 +10,12 @@ st.markdown("""
     .stApp {
         background-color: #FDFBF7;
     }
+    /* st.infoボックスのデザイン調整 */
+    .stAlert {
+        background-color: #E8F4FD;
+        border: 1px solid #D0E6FC;
+        color: #333;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -28,8 +34,7 @@ DEFAULT_NEEDS = [
 ]
 
 st.title("🎯 ニーズ アハ！")
-# タイトルの直下に小さくバージョン情報を表示
-st.markdown("<div style='font-size: 14px; color: #888888; margin-top: -15px; margin-bottom: 20px;'>1枚ずつ版 Ver1.00</div>", unsafe_allow_html=True)
+st.caption("カードオープン版 Ver1.00") # 画像を参考にバージョン情報を追加
 
 # --- 2. 初期設定（リセット時もここを通る） ---
 if 'candidates' not in st.session_state:
@@ -72,11 +77,11 @@ if st.session_state.finished:
     # === 結果画面 ===
     st.balloons() # お祝いのエフェクト
     
-    # メッセージ（色を落ち着いたテラコッタ系に変更）
+    # メッセージ
     st.markdown("<h2 style='text-align: center; color: #D35400;'>アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-size: 18px; color: #666666;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
     
-    # 結果を強調する特別なカードデザイン（背景色・文字色を全体のトーンに合わせる）
+    # 結果を強調する特別なカードデザイン
     st.markdown(
         f"""
         <div style="
@@ -106,13 +111,22 @@ else:
     # 現在のニーズを取得
     current_need = st.session_state.candidates[st.session_state.current_index]
     
-    # 進捗バー
+    # 進捗情報
     total = len(st.session_state.candidates)
-    current = st.session_state.current_index + 1
-    st.caption(f"Round {st.session_state.round_count} | {current} / {total}")
+    
+    # 画像を参考に、ラウンド情報とインストラクションを追加
+    st.write(f"### ラウンド{st.session_state.round_count}: 残り {total} 個の候補")
+    
+    st.info("""
+    ##### 💡 最終的に「これだ！」という1つのニーズに絞り込んでいきます。
+    
+    表示されるカードを見て、直感でピンときたら**「キープ！」**、違うなと思ったら**「これじゃない」**を選んで進めてください。
+    """)
+    
+    # 進捗バー
     st.progress(st.session_state.current_index / total)
 
-    # カード表示（目に優しいコントラストに調整）
+    # カード表示
     st.markdown(
         f"""
         <div style="
@@ -152,4 +166,3 @@ st.markdown(
     """, 
     unsafe_allow_html=True
 )
-
