@@ -3,6 +3,16 @@
 import streamlit as st
 import random
 
+# --- アプリ全体の背景色と基本デザインの設定 ---
+st.markdown("""
+    <style>
+    /* 画面全体の背景色を柔らかなアイボリーに */
+    .stApp {
+        background-color: #FDFBF7;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- 1. ニーズリスト ---
 DEFAULT_NEEDS = [
     "共感", "受容", "理解", "尊重", "思いやり", 
@@ -60,22 +70,22 @@ if st.session_state.finished:
     # === 結果画面 ===
     st.balloons() # お祝いのエフェクト
     
-    # メッセージ
-    st.markdown("<h2 style='text-align: center; color: #ff5722;'>アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; font-size: 18px; color: #555;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
+    # メッセージ（色を落ち着いたテラコッタ系に変更）
+    st.markdown("<h2 style='text-align: center; color: #D35400;'>アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 18px; color: #666666;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
     
-    # 結果を強調する特別なカードデザイン（温かみのあるグラデーション）
+    # 結果を強調する特別なカードデザイン（背景色・文字色を全体のトーンに合わせる）
     st.markdown(
         f"""
         <div style="
             padding: 50px 20px; 
-            background: linear-gradient(135deg, #fff9e6 0%, #ffe0b2 100%); 
-            border: 2px solid #ffcc80;
+            background: linear-gradient(135deg, #FFF0D1 0%, #FFDCA8 100%); 
+            border: 2px solid #FFC266;
             border-radius: 20px; 
             text-align: center; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 15px rgba(211, 84, 0, 0.15);
             margin: 30px 0;">
-            <h1 style="color: #d32f2f; margin:0; font-size: 48px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">
+            <h1 style="color: #C0392B; margin:0; font-size: 48px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">
                 {st.session_state.final_need}
             </h1>
         </div>
@@ -102,18 +112,18 @@ else:
     st.caption(f"Round {st.session_state.round_count} | {current} / {total}")
     st.progress(st.session_state.current_index / total)
 
-    # カード表示
+    # カード表示（目に優しいコントラストに調整）
     st.markdown(
         f"""
         <div style="
             padding: 40px; 
-            background-color: #ffffff; 
-            border: 2px solid #e0e0e0;
+            background-color: #FFFFFF; 
+            border: 2px solid #E2DCD0;
             border-radius: 15px; 
             text-align: center; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             margin: 20px 0;">
-            <h2 style="color: #333; margin:0; font-size: 32px;">{current_need}</h2>
+            <h2 style="color: #4A4A4A; margin:0; font-size: 32px;">{current_need}</h2>
         </div>
         """,
         unsafe_allow_html=True
@@ -136,7 +146,7 @@ else:
 # --- 5. コピーライト表示（フッター） ---
 st.markdown(
     """
-    <div style="text-align: center; padding-top: 50px; color: #888888; font-size: 14px;">
+    <div style="text-align: center; padding-top: 50px; color: #999999; font-size: 14px;">
         Copyright &copy; 2026 Takeshi Uchida
     </div>
     """, 
