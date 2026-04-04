@@ -85,7 +85,7 @@ if st.session_state.finished:
     
     # メッセージ
     st.markdown("<h2 style='text-align: center; color: #D35400;'>アハ！ 見つかりましたね！</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; font-size: 18px; color: #666666;'>今のあなたの心のど真ん中にある、一番大切にしたいニーズは...</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 18px; color: #666666;'>今のあなたの心のど真ん中にあるニーズは...</p>", unsafe_allow_html=True)
     
     # 結果を強調する特別なカードデザイン
     st.markdown(
